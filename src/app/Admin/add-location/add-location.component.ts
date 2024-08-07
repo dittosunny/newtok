@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'app-add-location',
@@ -21,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class AddLocationComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private locationService: LocationService) {
     this.form = this.fb.group({
       country: ['', Validators.required],
       state: ['', Validators.required],
@@ -32,7 +33,17 @@ export class AddLocationComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Form submitted:', this.form.value);
+      const formData = this.form.value;
+      console.log('Form submitted:', formData);
+
+      this.locationService.sendData(formData).subscribe(
+        response => {
+          console.log('Data successfully sent to backend:', response);
+        },
+        error => {
+          console.error('Error sending data to backend:', error);
+        }
+      );
     } else {
       console.log('Form is invalid');
     }
