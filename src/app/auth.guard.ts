@@ -1,31 +1,39 @@
 import { CanActivateFn } from '@angular/router';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { inject,  } from '@angular/core';
-
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
-  const allowedRoles = route.data['roles'] as Array<string>;
+  // Check if the code is running in the browser
+  if (isPlatformBrowser(platformId)) {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    const allowedRoles = route.data['roles'] as Array<string> || [];
 
-  if (token && role) {
-    if (allowedRoles && allowedRoles.includes(role)) {
-      return true; 
-    } else {
-      // Redirect based on the user's role
-      if (role === 'admin') {
-        return router.createUrlTree(['/admin-dashboard']);
-      } else if (role === 'user') {
-        return router.createUrlTree(['/user-dashboard']);
+    // Check if the user is authenticated and has an appropriate role
+    if (token && role) {
+      if (allowedRoles.includes(role)) {
+        return true; // Allow access if the user's role is in the allowed roles
       } else {
-        return router.createUrlTree(['/login']); 
+        // Redirect based on the user's role
+        if (role === 'admin') {
+          return router.createUrlTree(['/admin-dashboard']);
+        } else if (role === 'user') {
+          return router.createUrlTree(['/user-dashboard']);
+        } else {
+          return router.createUrlTree(['/login']); // Fallback for unexpected roles
+        }
       }
+    } else {
+      // Redirect to login if not authenticated
+      return router.createUrlTree(['/login']);
     }
   } else {
-    // Redirect to login if not authenticated
+    // If localStorage is not available (not running in the browser), redirect to login
     return router.createUrlTree(['/login']);
   }
 };
+
