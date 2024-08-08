@@ -1,31 +1,35 @@
 <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Upload Excel File</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngIf="data.length">
-          <mat-card-header>
-            <mat-card-title>Uploaded Data</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <table mat-table [dataSource]="data">
-              <ng-container *ngFor="let header of headers; let i = index" [matColumnDef]="header">
-                <th mat-header-cell *matHeaderCellDef>{{ header }}</th>
-                <td mat-cell *matCellDef="let row">{{ row[i] }}</td>
-              </ng-container>
-  
-              <tr mat-header-row *matHeaderRowDef="headers"></tr>
-              <tr mat-row *matRowDef="let row; columns: headers;"></tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
+  <div class="row">
+    <div class="col text-center">
+      <mat-card>
+        <mat-card-header style="margin-top: 10px;">
+          <mat-card-title>Upload Excel File</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+        </mat-card-content>
+      </mat-card>
+       
+      <div *ngIf="weatherData.length" class="weather-cards">
+        <div *ngFor="let weather of weatherData" class="weather-card">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Weather Data for {{ weather.location }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Country: {{ weather.weather.location.country }}</p>
+              <p>Region: {{ weather.weather.location.region }}</p>
+              <p>City: {{ weather.weather.location.name }}</p>
+              <p>Latitude: {{ weather.weather.location.lat }}</p>
+              <p>Longitude: {{ weather.weather.location.lon }}</p>
+              <p>Local Time: {{ weather.weather.location.localtime }}</p>
+              <p>Temperature (C): {{ weather.weather.current.temp_c }}</p>
+              <p>Temperature (F): {{ weather.weather.current.temp_f }}</p>
+              <p>Last Updated: {{ weather.weather.current.last_updated }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>

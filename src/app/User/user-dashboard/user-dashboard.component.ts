@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -13,7 +15,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatTableModule,
     MatSortModule,
-
+    RouterLink,
+    MatButtonModule
   ],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'

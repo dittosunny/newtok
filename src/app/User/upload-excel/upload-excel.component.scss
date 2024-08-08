@@ -66,4 +66,38 @@
       font-size: 12px;
     }
   }
+
+
+  .weather-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .weather-card {
+    flex: 1 1 calc(33.333% - 32px);
+    box-sizing: border-box;
+  }
+  
+  @media (max-width: 768px) {
+    .weather-card {
+      flex: 1 1 calc(50% - 32px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .weather-card {
+      flex: 1 1 100%;
+    }
+  }
+  
+  .upload-card {
+    margin-bottom: 20px; /* Adjust the value as needed */
+  }
+  
+  .weather-cards {
+    margin-top: 20px; /* Adjust the value as needed */
+  }
+  
   

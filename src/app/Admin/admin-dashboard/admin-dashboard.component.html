@@ -1,1 +1,41 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-container">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>Admin Dashboard</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="dashboard-section">
+          <h3>User Statistics</h3>
+          <div class="statistics">
+            <div class="stat-item">
+              <h4>Total Users</h4>
+              <p>1,234</p>
+            </div>
+            <div class="stat-item">
+              <h4>Active Users</h4>
+              <p>567</p>
+            </div>
+            <div class="stat-item">
+              <h4>New Signups</h4>
+              <p>34</p>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-section">
+          <h3>Recent Activity</h3>
+          <ul class="activity-list">
+            <li>User JohnDoe signed up.</li>
+            <li>User JaneDoe posted a comment.</li>
+            <li>User Admin updated a setting.</li>
+          </ul>
+        </div>
+        <div class="dashboard-section">
+          <h3>Quick Actions</h3>
+          <button  mat-raised-button [routerLink]="['/register-user']" color="primary">Add New User</button>
+          <button mat-raised-button [routerLink]="['/add-location']" color="accent">Add location</button>
+          <!-- <button mat-raised-button color="warn">Manage Settings</button> -->
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

@@ -26,6 +26,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './upload-excel.component.scss'
 })
 export class UploadExcelComponent {
+  fileUploaded = false;
   data: any[] = [];
   headers: string[] = [];
   weatherData: any[] = [];

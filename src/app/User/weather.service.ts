@@ -19,6 +19,6 @@ export class WeatherService {
   }
 
   getLocationData(): Observable<any> {
-    return this.http.get(`${this.LocationUrl}/get-daa`);
+    return this.http.get(`${this.LocationUrl}/get-data`);
   }
 }
